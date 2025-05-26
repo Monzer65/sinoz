@@ -6,7 +6,12 @@ import { Search, ShoppingCart, User, Menu, Heart } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
@@ -15,14 +20,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 const navigationItems = [
-  { name: "Home", href: "/" },
-  { name: "Shop", href: "/shop" },
-  { name: "Categories", href: "/categories" },
-  { name: "Deals", href: "/deals" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "خانه", href: "/" },
+  { name: "فروشگاه", href: "/shop" },
+  { name: "دسته‌بندی‌ها", href: "/categories" },
+  { name: "ویژه‌ها", href: "/deals" },
+  { name: "درباره", href: "/about" },
+  { name: "تماس", href: "/contact" },
 ];
 
 export function Header() {
@@ -35,20 +41,20 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">
-                  S
-                </span>
-              </div>
-              <span className="font-bold text-xl hidden sm:inline-block">
-                ShopHub
-              </span>
+            <Link href="/" className="block">
+              <Image
+                src="/sinoz-full-logo-446*140.png"
+                alt="لوگوی سینوز"
+                width={446}
+                height={140}
+                className="h-10 w-auto max-w-[150px] sm:max-w-[200px] md:max-w-[250px]"
+                priority
+              />
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-6 rtl:space-x-reverse">
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
@@ -73,7 +79,7 @@ export function Header() {
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
             {/* Search Button - Mobile */}
             <Button
               variant="ghost"
@@ -82,13 +88,13 @@ export function Header() {
               onClick={() => setIsSearchOpen(!isSearchOpen)}
             >
               <Search className="h-5 w-5" />
-              <span className="sr-only">Search</span>
+              <span className="sr-only">جستجو</span>
             </Button>
 
             {/* Wishlist */}
             <Button variant="ghost" size="icon" className="hidden sm:flex">
               <Heart className="h-5 w-5" />
-              <span className="sr-only">Wishlist</span>
+              <span className="sr-only">علاقمندی‌ها</span>
             </Button>
 
             {/* User Account */}
@@ -96,32 +102,32 @@ export function Header() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <User className="h-5 w-5" />
-                  <span className="sr-only">Account</span>
+                  <span className="sr-only">حساب کاربری</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuItem>
                   <Link href="/profile" className="w-full">
-                    My Profile
+                    پروفایل من
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/orders" className="w-full">
-                    My Orders
+                    سفارشات من
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/wishlist" className="w-full">
-                    Wishlist
+                    علاقمندی‌ها
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Link href="/settings" className="w-full">
-                    Settings
+                    تنظیمات
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>Sign Out</DropdownMenuItem>
+                <DropdownMenuItem>خروج</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -136,7 +142,7 @@ export function Header() {
                   {cartItemCount}
                 </Badge>
               )}
-              <span className="sr-only">Shopping cart</span>
+              <span className="sr-only">سبد خرید</span>
             </Button>
 
             {/* Mobile Menu */}
@@ -144,10 +150,12 @@ export function Header() {
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
                   <Menu className="h-5 w-5" />
-                  <span className="sr-only">Menu</span>
+                  <span className="sr-only">منو</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <SheetTitle className="sr-only"></SheetTitle>
+
                 <nav className="flex flex-col space-y-4 mt-8">
                   {navigationItems.map((item) => (
                     <Link
@@ -161,10 +169,10 @@ export function Header() {
                   <div className="border-t pt-4 mt-4">
                     <Link
                       href="/wishlist"
-                      className="flex items-center space-x-2 text-lg font-medium transition-colors hover:text-primary py-2"
+                      className="flex items-center space-x-2 rtl:space-x-reverse text-lg font-medium transition-colors hover:text-primary py-2"
                     >
                       <Heart className="h-5 w-5" />
-                      <span>Wishlist</span>
+                      <span>علاقمندی‌ها</span>
                     </Link>
                   </div>
                 </nav>

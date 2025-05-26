@@ -1,7 +1,9 @@
 import { Header } from "@/components/header";
+import { TopBar } from "@/components/top-bar";
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <TopBar />
       <Header />
 
       {/* Demo Content */}
