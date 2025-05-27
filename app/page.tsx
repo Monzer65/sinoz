@@ -1,45 +1,67 @@
-import { Header } from "@/components/header";
-import { TopBar } from "@/components/top-bar";
+import ProductCard from "@/components/product-card";
+import type { Product } from "@/lib/types";
+
+// Mock products data
+const products: Product[] = [
+  {
+    id: "1",
+    name: "Wireless Headphones",
+    price: 99.99,
+    image: "/placeholder.svg?height=300&width=300",
+    description: "High-quality wireless headphones with noise cancellation",
+    stock: 15,
+  },
+  {
+    id: "2",
+    name: "Smart Watch",
+    price: 199.99,
+    image: "/placeholder.svg?height=300&width=300",
+    description: "Feature-rich smartwatch with health tracking",
+    stock: 8,
+  },
+  {
+    id: "3",
+    name: "Laptop Stand",
+    price: 49.99,
+    image: "/placeholder.svg?height=300&width=300",
+    description: "Ergonomic laptop stand for better posture",
+    stock: 25,
+  },
+  {
+    id: "4",
+    name: "USB-C Hub",
+    price: 79.99,
+    image: "/placeholder.svg?height=300&width=300",
+    description: "Multi-port USB-C hub with 4K HDMI output",
+    stock: 0,
+  },
+  {
+    id: "5",
+    name: "Wireless Mouse",
+    price: 29.99,
+    image: "/placeholder.svg?height=300&width=300",
+    description: "Precision wireless mouse with long battery life",
+    stock: 12,
+  },
+  {
+    id: "6",
+    name: "Mechanical Keyboard",
+    price: 129.99,
+    image: "/placeholder.svg?height=300&width=300",
+    description: "RGB mechanical keyboard with tactile switches",
+    stock: 6,
+  },
+];
+
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      <Header />
-
-      {/* Demo Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold">Welcome to ShopHub</h1>
-          <p className="text-xl text-muted-foreground">
-            Your one-stop destination for amazing products
-          </p>
-
-          {/* Demo sections to show scrolling behavior */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-64 bg-muted rounded-lg flex items-center justify-center"
-              >
-                <span className="text-muted-foreground">Product {i + 1}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* More content to demonstrate sticky header */}
-          <div className="mt-16 space-y-8">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-32 bg-muted/50 rounded-lg flex items-center justify-center"
-              >
-                <span className="text-muted-foreground">
-                  Content Section {i + 1}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </main>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">Featured Products</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 }

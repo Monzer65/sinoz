@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { baseUrl } from "@/lib/utils";
 import "./globals.css";
+import { CartProvider } from "@/contexts/cart-context";
+import CartIcon from "@/components/cart/cart-icon";
+import { Header } from "@/components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,7 +73,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${vazirmatn.variable} font-[family-name:var(--font-vazirmatn-regular)] antialiased`}
       >
-        {children}
+        <CartProvider>
+          {/*<header className="border-b">
+            <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+              <h1 className="text-2xl font-bold">Store</h1>
+              <CartIcon />
+            </div>
+          </header>*/}
+          <Header />
+          <main>{children}</main>
+        </CartProvider>
       </body>
     </html>
   );
