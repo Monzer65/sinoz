@@ -16,7 +16,6 @@ import {
   User,
   UserCircle,
 } from "lucide-react";
-import { Badge } from "./ui/badge";
 import { Input } from "@/components/ui/input";
 import {
   Sheet,
@@ -43,7 +42,6 @@ const navigationItems = [
 ];
 
 export function Header() {
-  const cartItemCount = 3; // This would come from your cart state
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   return (
     <header className="h-[5.5rem] sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
@@ -144,18 +142,6 @@ export function Header() {
           </DropdownMenu>
 
           {/* Shopping Cart */}
-          {/*}<button className="relative hover:text-amber-700">
-            <ShoppingBag className="h-6 w-6 min-[359px]:h-8 min-[359px]:w-8" />
-            {cartItemCount > 0 && (
-              <Badge
-                variant="destructive"
-                className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
-              >
-                {cartItemCount}
-              </Badge>
-            )}
-            <span className="sr-only">سبد خرید</span>
-          </button>*/}
           <CartIcon />
 
           {/* Search Button - Mobile */}

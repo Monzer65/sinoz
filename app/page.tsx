@@ -1,4 +1,10 @@
+import BrandValuesSection from "@/components/brand-value";
+import CategorySection from "@/components/category-section";
+import HeroSection from "@/components/hero";
+import NewsletterSection from "@/components/newsletter";
 import ProductCard from "@/components/product-card";
+import SpecialOffersSection from "@/components/special-offers";
+import TestimonialsSection from "@/components/testimonials";
 import type { Product } from "@/lib/types";
 
 // Mock products data
@@ -55,13 +61,23 @@ const products: Product[] = [
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Featured Products</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+    <>
+      <div className="container mx-auto px-4 py-8">
+        {/*<Hero />*/}
+        <HeroSection />
+        <CategorySection />
+        <SpecialOffersSection />
+        <h1 className="text-3xl font-bold mb-8">Featured Products</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+        <BrandValuesSection />
+        <TestimonialsSection />
+
+        <NewsletterSection />
       </div>
-    </div>
+    </>
   );
 }

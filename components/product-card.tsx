@@ -47,8 +47,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="object-cover rounded-t-lg"
           />
           {isOutOfStock && (
-            <Badge variant="destructive" className="absolute top-2 right-2">
-              Out of Stock
+            <Badge variant="destructive" className="absolute top-2 left-2">
+              اتمام موجودی
             </Badge>
           )}
         </div>
@@ -60,9 +60,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         </p>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold">
-            ${product.price.toFixed(2)}
+            {product.price.toFixed(2)} تومان
           </span>
-          <Badge variant="outline">{product.stock} in stock</Badge>
+          <Badge variant="outline">{product.stock} درانبار</Badge>
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
@@ -74,18 +74,18 @@ export default function ProductCard({ product }: ProductCardProps) {
         >
           {isAdding ? (
             <>
-              <Check className="w-4 h-4 mr-2" />
-              Added!
+              <Check className="w-4 h-4 ml-2" />
+              اضافه شد
             </>
           ) : isInCart ? (
             <>
-              <Check className="w-4 h-4 mr-2" />
-              In Cart
+              <Check className="w-4 h-4 ml-2" />
+              موجود در سبد{" "}
             </>
           ) : (
             <>
-              <Plus className="w-4 h-4 mr-2" />
-              Add to Cart
+              <Plus className="w-4 h-4 ml-2" />
+              افزودن به سبد خرید
             </>
           )}
         </Button>
