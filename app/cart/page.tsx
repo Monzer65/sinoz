@@ -15,14 +15,14 @@ export default function CartPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-16">
           <ShoppingBag className="mx-auto h-16 w-16 text-muted-foreground mb-4" />
-          <h2 className="text-2xl font-semibold mb-2">Your cart is empty</h2>
+          <h2 className="text-2xl font-semibold mb-2">سبد شما خالی است</h2>
           <p className="text-muted-foreground mb-6">
-            Looks like you haven't added any items to your cart yet.
+            شما هنوز چیزی به سبد خرید اضافه نکرده‌اید
           </p>
           <Button asChild>
             <Link href="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Continue Shopping
+              <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+              ادامه خرید
             </Link>
           </Button>
         </div>
@@ -33,20 +33,20 @@ export default function CartPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold">Shopping Cart</h1>
+        <h1 className="text-3xl font-bold">سبد خرید</h1>
         <Button variant="outline" onClick={clearCart}>
-          Clear Cart
+          تخلیه سبد
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-4">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <div className="xl:col-span-2 space-y-4">
           {items.map((item) => (
             <CartItem key={item.id} item={item} />
           ))}
         </div>
 
-        <div className="lg:col-span-1">
+        <div className="xl:col-span-1">
           <CartSummary />
         </div>
       </div>
@@ -54,8 +54,8 @@ export default function CartPage() {
       <div className="mt-8">
         <Button variant="outline" asChild>
           <Link href="/">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Continue Shopping
+            <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+            ادامه خرید
           </Link>
         </Button>
       </div>

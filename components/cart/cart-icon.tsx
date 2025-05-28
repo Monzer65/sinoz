@@ -1,7 +1,6 @@
 "use client";
 
 import { ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/cart-context";
 import Link from "next/link";
@@ -10,9 +9,9 @@ export default function CartIcon() {
   const { itemCount } = useCart();
 
   return (
-    <Button variant="outline" size="icon" asChild className="relative">
+    <button className="relative hover:text-amber-700">
       <Link href="/cart">
-        <ShoppingCart className="h-4 w-4" />
+        <ShoppingCart className="h-6 w-6 min-[359px]:h-8 min-[359px]:w-8" />
         {itemCount > 0 && (
           <Badge
             variant="destructive"
@@ -23,6 +22,6 @@ export default function CartIcon() {
         )}
         <span className="sr-only">Shopping cart</span>
       </Link>
-    </Button>
+    </button>
   );
 }
