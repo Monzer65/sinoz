@@ -3,14 +3,11 @@ import { Star } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="max-w-screen-xl mx-auto p-6 bg-gradient-to-b from-rose-50 to-white">
+    <section className="relative -top-[8rem] max-w-screen-xl mx-auto py-[11rem] bg-gradient-to-b from-rose-50 to-white">
       <div className="flex flex-col lg:flex-row items-center gap-8 py-10">
         {/* Text Area */}
         <div className="w-full lg:w-1/2 space-y-6">
           <div className="relative">
-            <span className="inline-block px-4 py-1 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-2 hover:scale-105 transition-transform duration-300">
-              کالکشن جدید
-            </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               آرایشی و بهداشتی سینوز
             </h1>
@@ -86,27 +83,6 @@ export default function HeroSection() {
           </div>
 
           {/* Floating tags */}
-          <div className="absolute -top-4 -right-4 md:-top-10 md:-right-16 bg-white p-4 rounded-xl shadow-lg hover:rotate-3 hover:scale-105 transition-transform duration-300">
-            <div className="flex items-center gap-3">
-              <div className="bg-primary-100 p-2 rounded-lg">🚚</div>
-              <div>
-                <p className="font-medium">ارسال رایگان</p>
-                <p className="text-sm text-gray-500">
-                  برای سفارش‌های بالای ۵۰۰ هزار
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="absolute -bottom-4 -left-4 md:bottom-[10rem] md:-left-8 bg-white p-4 rounded-xl shadow-lg hover:rotate-3 hover:scale-105 transition-transform duration-300">
-            <div className="flex items-center gap-3">
-              <div className="bg-emerald-100 p-2 rounded-lg">🌿</div>
-              <div>
-                <p className="font-medium">مواد طبیعی</p>
-                <p className="text-sm text-gray-500">بدون تست حیوانی</p>
-              </div>
-            </div>
-          </div>
 
           <div className="absolute -top-12 right-1/4 w-20 h-20 rounded-full bg-rose-200 opacity-50 blur-md" />
           <div className="absolute top-1/3 left-8 w-16 h-16 rounded-full bg-primary-200 opacity-50 blur-md" />

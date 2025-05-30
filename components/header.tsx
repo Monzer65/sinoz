@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   BookOpen,
-  Grip,
   Heart,
   Home,
   LogOut,
@@ -17,12 +16,7 @@ import {
   UserCircle,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,55 +26,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import CartIcon from "./cart/cart-icon";
+import NavMenuMobile from "./nav-menu-mobile";
 
-const navigationItems = [
-  { name: "خانه", href: "/", icon: Home },
-  { name: "فروشگاه", href: "/shop", icon: Store },
-  { name: "دسته‌بندی‌ها", href: "/categories" },
-  { name: "درباره", href: "/about", icon: BookOpen },
-  { name: "تماس", href: "/contact", icon: Phone },
+export const navigationItems = [
+  { label: "خانه", href: "/", icon: Home },
+  { label: "محصولات", href: "/products", icon: Store },
+  { label: "درباره", href: "/about", icon: BookOpen },
+  { label: "تماس", href: "/contact", icon: Phone },
 ];
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   return (
-    <header className="h-[5.5rem] sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-4">
-      <div className="container px-4 sm:px-0 flex items-center justify-between mx-auto h-full border-b border-b-gray-400">
+    <header className="h-[5.5rem] sticky top-0 z-50 w-full px-4 sm:px-8">
+      <div className="flex items-center justify-between mx-auto h-full border-b border-b-gray-200">
         {/* Right Side Actions */}
-        <div className="flex items-center gap-4 ">
+        <div className="flex items-center gap-4">
           {/* Mobile Menu */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <button className="md:hidden hover:text-amber-700">
-                <Grip className="h-6 w-6 min-[359px]:h-8 min-[359px]:w-8" />
-                <span className="sr-only">منو</span>
-              </button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <SheetTitle className="sr-only"></SheetTitle>
-              <nav className="flex flex-col space-y-4 mt-8">
-                {navigationItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="flex items-center gap-2 text-lg font-medium transition-colors hover:text-amber-700 py-2"
-                  >
-                    {item.icon && <item.icon className="w-5 h-5" />}
-                    {item.name}
-                  </Link>
-                ))}
-                <div className="border-t pt-4 mt-4">
-                  <Link
-                    href="/wishlist"
-                    className="flex items-center space-x-2 rtl:space-x-reverse text-lg font-medium transition-colors hover:text-amber-700 py-2"
-                  >
-                    <Heart className="h-5 w-5" />
-                    <span>علاقمندی‌ها</span>
-                  </Link>
-                </div>
-              </nav>
-            </SheetContent>
-          </Sheet>
+          <NavMenuMobile />
 
           {/* User Account */}
           <DropdownMenu>
@@ -140,10 +104,8 @@ export function Header() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
           {/* Shopping Cart */}
           <CartIcon />
-
           {/* Search Button - Mobile */}
           <button
             className="hover:text-amber-700"
@@ -158,11 +120,12 @@ export function Header() {
         <nav className="hidden md:flex items-center space-x-6 rtl:space-x-reverse">
           {navigationItems.map((item) => (
             <Link
-              key={item.name}
+              key={item.label}
               href={item.href}
-              className="font-medium transition-colors hover:text-amber-700"
+              className="group relative font-medium text-black transition-colors hover:text-amber-700"
             >
-              {item.name}
+              {item.label}
+              <span className="absolute -bottom-0.5 right-0 w-full h-[2px] bg-amber-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 group-hover:origin-right" />
             </Link>
           ))}
         </nav>
