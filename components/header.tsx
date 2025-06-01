@@ -7,7 +7,7 @@ import {
   Heart,
   Home,
   LogOut,
-  Phone,
+  Mail,
   Search,
   Settings,
   ShoppingBag,
@@ -24,7 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartIcon from "./cart/cart-icon";
 import NavMenuMobile from "./nav-menu-mobile";
 
@@ -32,24 +32,67 @@ export const navigationItems = [
   { label: "خانه", href: "/", icon: Home },
   { label: "محصولات", href: "/products", icon: Store },
   { label: "درباره", href: "/about", icon: BookOpen },
-  { label: "تماس", href: "/contact", icon: Phone },
+  { label: "تماس", href: "/contact", icon: Mail },
 ];
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [bgState, setBgState] = useState<"transparent" | "white" | "gray">(
+    "transparent",
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const heroSection = document.getElementById("hero-section");
+
+      if (!heroSection) {
+        setBgState("gray"); // fallback if hero not found
+        return;
+      }
+
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+
+      if (scrollY < 120) {
+        setBgState("transparent");
+      } else if (scrollY < heroBottom) {
+        setBgState("white");
+      } else {
+        setBgState("gray");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const headerClasses = {
+    transparent: "bg-transparent text-gray-900 shadow-none",
+    white: "bg-white text-gray-900 shadow-sm",
+    gray: "bg-gray-100 text-gray-900 shadow-md",
+  };
 
   return (
-    <header className="h-[5.5rem] sticky top-0 z-50 w-full px-4 sm:px-8">
-      <div className="flex items-center justify-between mx-auto h-full border-b border-b-gray-200">
+    <header
+      className={`h-[5.5rem] sticky top-0 z-50 w-full px-4 sm:px-8 transition-colors duration-300 ${headerClasses[bgState]}`}
+    >
+      <div
+        className={`flex items-center justify-between h-full border-b transition-colors duration-300 ${bgState === "transparent"
+            ? "border-b-transparent"
+            : "border-b-gray-200"
+          }`}
+      >
         {/* Right Side Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-end gap-4">
           {/* Mobile Menu */}
           <NavMenuMobile />
 
           {/* User Account */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="hover:text-amber-700 transition">
+              <button className="hover:text-emerald-500 transition">
                 <User className="h-6 w-6 min-[359px]:h-8 min-[359px]:w-8" />
                 <span className="sr-only">حساب کاربری</span>
               </button>
@@ -108,7 +151,7 @@ export function Header() {
           <CartIcon />
           {/* Search Button - Mobile */}
           <button
-            className="hover:text-amber-700"
+            className="hover:text-emerald-500"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
           >
             <Search className="h-6 w-6 min-[359px]:h-8 min-[359px]:w-8" />
@@ -122,10 +165,10 @@ export function Header() {
             <Link
               key={item.label}
               href={item.href}
-              className="group relative font-medium text-black transition-colors hover:text-amber-700"
+              className="group relative font-medium transition-colors hover:text-emerald-500"
             >
               {item.label}
-              <span className="absolute -bottom-0.5 right-0 w-full h-[2px] bg-amber-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 group-hover:origin-right" />
+              <span className="absolute -bottom-0.5 right-0 w-full h-[2px] bg-emerald-500 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 group-hover:origin-right" />
             </Link>
           ))}
         </nav>

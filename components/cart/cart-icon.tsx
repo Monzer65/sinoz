@@ -9,7 +9,7 @@ export default function CartIcon() {
   const { itemCount } = useCart();
 
   return (
-    <button className="relative hover:text-amber-700">
+    <button className="relative hover:text-emerald-500">
       <Link href="/cart">
         <ShoppingCart className="h-6 w-6 min-[359px]:h-8 min-[359px]:w-8" />
         {itemCount > 0 && (

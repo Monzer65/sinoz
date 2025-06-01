@@ -1,3 +1,4 @@
+"use client";
 import {
   Sun,
   Droplets,
@@ -7,7 +8,72 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+import { useRef } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+// Sample categories for Sinoz products
 const categories = [
+  {
+    id: 1,
+    name: "مراقبت پوست",
+    englishName: "Skincare",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-purple-100",
+  },
+  {
+    id: 2,
+    name: "آرایش",
+    englishName: "Makeup",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-pink-100",
+  },
+  {
+    id: 3,
+    name: "مراقبت مو",
+    englishName: "Hair Care",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-blue-100",
+  },
+  {
+    id: 4,
+    name: "عطر",
+    englishName: "Fragrance",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-amber-100",
+  },
+  {
+    id: 5,
+    name: "مراقبت بدن",
+    englishName: "Body Care",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-green-100",
+  },
+  {
+    id: 6,
+    name: "ست هدیه",
+    englishName: "Gift Sets",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-rose-100",
+  },
+  {
+    id: 7,
+    name: "ضد آفتاب",
+    englishName: "Suncare",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-yellow-100",
+  },
+  {
+    id: 8,
+    name: "محصولات ویژه",
+    englishName: "Special",
+    image: "/placeholder.svg?height=120&width=120",
+    color: "bg-violet-100",
+  },
+];
+
+const categories1 = [
   {
     id: 1,
     title: "مراقبت صورت",
@@ -70,83 +136,85 @@ const categories = [
   },
 ];
 
-export default function CategorySection() {
-  return (
-    <section className="max-w-screen-xl mx-auto p-6 py-16">
-      <div className="text-center mb-8 md:mb-12">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-          خرید بر اساس دسته‌بندی
-        </h2>
-        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
-          از مجموعه کامل محصولات آرایشی و بهداشتی سینوز، دسته مورد علاقه‌تان را
-          انتخاب کنید
-        </p>
-      </div>
+export default function CategoryScroller() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {categories.map((category) => {
-          const IconComponent = category.icon;
-          return (
+  const scrollLeft = () => {
+    if (scrollerRef.current) {
+      scrollerRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollerRef.current) {
+      scrollerRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section className="py-12 px-4 sm:px-6 bg-white">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
+            دسته‌بندی محصولات
+          </h2>
+
+          {/* Navigation arrows - Only visible on desktop */}
+          <div className="hidden md:flex gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={scrollLeft}
+              className="rounded-full border-slate-200 hover:bg-slate-100"
+            >
+              <ChevronRight className="h-5 w-5" />
+              <span className="sr-only">قبلی</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={scrollRight}
+              className="rounded-full border-slate-200 hover:bg-slate-100"
+            >
+              <ChevronLeft className="h-5 w-5" />
+              <span className="sr-only">بعدی</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* Scrollable container */}
+        <div
+          ref={scrollerRef}
+          className="flex overflow-x-auto gap-4 pb-6 snap-x scrollbar-hide"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {categories.map((category) => (
             <div
               key={category.id}
-              className="group relative overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1 cursor-pointer"
+              className="flex-none w-36 md:w-44 snap-start"
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-              />
-              <div className="relative p-4 sm:p-5 md:p-6">
+              <button className="w-full text-center focus:outline-none group">
                 <div
-                  className={`${category.bgColor} w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 group-hover:rotate-3 transition-transform duration-500`}
+                  className={`rounded-2xl ${category.color} p-4 mb-3 aspect-square flex items-center justify-center group-hover:scale-105 transition-transform duration-200`}
                 >
-                  <IconComponent
-                    className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 ${category.iconColor}`}
-                  />
-                </div>
-
-                <div className="space-y-2 sm:space-y-3">
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 group-hover:text-gray-800 transition-colors duration-300">
-                    {category.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 leading-normal">
-                    {category.description}
-                  </p>
-                  <div className="flex flex-wrap items-center justify-between pt-3">
-                    <span className="text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                      {category.count}
-                    </span>
-                    <div className="flex items-center text-blue-500 text-xs sm:text-sm font-medium group-hover:text-blue-600 transition-colors duration-300">
-                      مشاهده همه
-                      <svg
-                        className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-transform duration-300"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                    </div>
+                  <div className="relative w-20 h-20 md:w-24 md:h-24">
+                    <Image
+                      src={category.image || "/placeholder.svg"}
+                      alt={category.name}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 80px, 96px"
+                    />
                   </div>
                 </div>
-
-                {/* Decorative elements */}
-                <div className="absolute top-4 left-4 w-16 h-16 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              </div>
+                <h3 className="font-medium text-slate-800 text-base md:text-lg">
+                  {category.name}
+                </h3>
+                <p className="text-xs text-slate-500">{category.englishName}</p>
+              </button>
             </div>
-          );
-        })}
-      </div>
-
-      {/* Call to action */}
-      <div className="text-center mt-10 sm:mt-12">
-        <button className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-semibold shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-          مشاهده تمام محصولات
-        </button>
+          ))}
+        </div>
       </div>
     </section>
   );

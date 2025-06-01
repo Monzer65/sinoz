@@ -6,7 +6,6 @@ import { useGSAP } from "@gsap/react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { navigationItems } from "./header";
-import { Grip, Menu, X } from "lucide-react";
 
 export default function NavMenuMobile() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,40 +32,50 @@ export default function NavMenuMobile() {
 
       if (isOpen) {
         // Open animation
+        tl.set(".menu", { x: "100%", opacity: 0, scale: 0.95 });
+
         tl.to(".menu", {
           x: 0,
           opacity: 1,
-          duration: 0.2,
-          ease: "power3.out",
+          scale: 1,
+          duration: 0.35,
+          ease: "power2.out",
         });
 
-        tl.from(".menu-item", {
-          y: 20,
-          opacity: 0,
-          duration: 0.3,
-          stagger: 0.1,
-          ease: "back.out(1.7)",
-        });
+        tl.from(
+          ".menu-item",
+          {
+            y: 24,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.08,
+            ease: "power3.out",
+          },
+          "-=0.2",
+        ); // start slightly before menu finishes animating
       } else if (isVisible) {
-        // Close animation with timeline
+        // Close animation
         tl.to(".menu-item", {
-          y: -20,
+          y: -10,
           opacity: 0,
-          duration: 0.1,
-          stagger: 0.1,
-          ease: "back.in(1.7)",
+          duration: 0.2,
+          stagger: {
+            amount: 0.25,
+            from: "end",
+          },
+          ease: "power2.inOut",
         });
 
         tl.to(".menu", {
-          scale: 0.9,
+          scale: 0.96,
           opacity: 0,
-          duration: 0.2,
-          ease: "power3.in",
+          duration: 0.25,
+          ease: "power2.inOut",
         });
 
         tl.to(".menu", {
           x: "100%",
-          duration: 0.2,
+          duration: 0.25,
           ease: "power3.in",
           onComplete: () => setIsVisible(false),
         });
@@ -87,19 +96,27 @@ export default function NavMenuMobile() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <div ref={containerRef} className="relative z-50">
+    <div ref={containerRef} className="text-gray-900">
       {/* Menu Button */}
+
       <button
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
-        className="p-3 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-black hover:text-amber-700 transition-colors text-xl font-bold"
+        className={`md:hidden relative flex flex-col justify-center items-center w-6 h-6 min-[359px]:h-8 min-[359px]:w-8 z-50 group ${!isOpen ? "hover:text-emerald-500" : "hover:text-[#c5fb45] hover:bg-gray-800"}`}
         onClick={toggleMenu}
       >
-        {isOpen ? (
-          <X className="w-6 h-6 min-[359px]:w-8 min-[359px]:h-8" />
-        ) : (
-          <Menu className="w-6 h-6 min-[359px]:w-8 min-[359px]:h-8" />
-        )}
+        <span
+          className={`block w-6 h-0.5 bg-current transition-all duration-300 ease-in-out 
+      ${isOpen ? "rotate-45 translate-y-1.5" : "-translate-y-1.5"}`}
+        />
+        <span
+          className={`block w-6 h-0.5 bg-current my-1 transition-all duration-300 ease-in-out 
+      ${isOpen ? "opacity-0" : "opacity-100"}`}
+        />
+        <span
+          className={`block w-6 h-0.5 bg-current transition-all duration-300 ease-in-out 
+      ${isOpen ? "-rotate-45 -translate-y-1.5" : "translate-y-1.5"}`}
+        />
       </button>
 
       {/* Menu Overlay */}
@@ -116,29 +133,23 @@ export default function NavMenuMobile() {
           <div
             className={twMerge(
               "menu fixed top-0 right-0 w-full max-w-md h-full",
-              "bg-[#c5fb45] p-6 z-50 shadow-2xl",
+              "bg-[#c5fb45] py-8 px-2 z-40 shadow-2xl",
               "transform translate-x-full opacity-0", // Initial hidden state
               "max-[420px]:max-w-none", // Full screen on small devices
             )}
           >
-            <div className="flex justify-end mb-10">
-              <button
-                onClick={closeMenu}
-                className="text-black px-6 py-3 rounded-lg text-2xl font-bold hover:bg-[#a8e032] transition-colors flex items-center"
-              >
-                ✕ <span className="mr-2">بستن</span>
-              </button>
-            </div>
+            <div className="flex justify-end mb-10 py-3"></div>
 
             <nav aria-label="Main navigation" className="mb-10 ">
-              <ul className="space-y-8">
+              <ul>
                 {navigationItems.map((item) => (
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="menu-item block py-4 px-6 text-2xl font-bold rounded-lg transition-colors duration-200 hover:text-[#c5fb45] hover:bg-gray-800"
+                      className="menu-item flex items-center gap-2 py-4 px-4 text-2xl font-bold rounded-lg transition-colors duration-200 hover:text-[#c5fb45] hover:bg-gray-800"
                       onClick={closeMenu}
                     >
+                      <item.icon />
                       {item.label}
                     </Link>
                   </li>
